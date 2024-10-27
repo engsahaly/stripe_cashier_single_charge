@@ -15,8 +15,14 @@
                                 <h5>{{ $course->name }}</h5>
                             </a>
                             <p>{{ $course->description }}</p>
-                            <p>{{ $course->price }}</p>
-                            <a href="#" class="btn btn-sm btn-primary">Add To Cart</a>
+                            <p>{{ $course->price() }}</p>
+                            @if ($cart && $cart->courses->contains($course))
+                                <a href="{{ route('removeFromCart', $course) }}" class="btn btn-sm btn-danger">Remove From
+                                    Cart</a>
+                            @else
+                                <a href="{{ route('addtoCart', $course) }}" class="btn btn-sm btn-primary">Add To
+                                    Cart</a>
+                            @endif
                         </div>
                     </div>
                 @endforeach

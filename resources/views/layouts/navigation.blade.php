@@ -21,6 +21,11 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+
+                    {{-- cart Link --}}
+                    <x-nav-link :href="route('cart.index')" :active="request()->routeIs('cart.index')">
+                        {{ __('Cart') }} ({{ $cart ? count($cart->courses) : 0 }})
+                    </x-nav-link>
                 </div>
             </div>
 
