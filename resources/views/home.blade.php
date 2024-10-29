@@ -7,6 +7,11 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 row">
+            @if (request('message'))
+                <div class="alert alert-{{ request('message') == 'Payment successful!' ? 'success' : 'danger' }}">
+                    {{ request('message') }}</div>
+            @endif
+
             @if (count($courses) > 0)
                 @foreach ($courses as $course)
                     <div class="card col-4">
