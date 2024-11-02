@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\PaymentMethodCheckoutController;
 use App\Http\Controllers\ProfileController;
 use Laravel\Cashier\Cashier;
 
@@ -36,6 +37,28 @@ Route::controller(CheckoutController::class)->group(function () {
     Route::get('/checkout/success', 'success')->middleware('auth')->name('checkout.success');
     Route::get('/checkout/cancel', 'cancel')->middleware('auth')->name('checkout.cancel');
 });
+
+
+
+
+
+
+// Direct Integration - Payment Method
+Route::controller(PaymentMethodCheckoutController::class)->group(function () {
+    Route::get('/direct/paymentMethod', 'index')->middleware('auth')->name('direct.paymentMethod');    
+    Route::post('/direct/paymentMethod/post', 'post')->middleware('auth')->name('direct.paymentMethod.post');    
+    Route::get('/direct/paymentMethod/oneClick', 'oneClick')->middleware(['auth', 'protectOneClickCheckout'])->name('direct.paymentMethod.oneClick');    
+});
+
+
+
+
+
+
+
+
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

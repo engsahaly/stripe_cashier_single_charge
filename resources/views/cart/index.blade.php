@@ -23,7 +23,16 @@
                             <h6>Total
                                 <small class="text-primary">({{ $cart->total() }})</small>
                             </h6>
-                            <a href="{{ route('checkout.guest') }}" class="btn btn-sm btn-success">Checkout</a>
+                            <div>
+                                @if (Auth::user()->hasDefaultPaymentMethod())
+                                    <a href="{{ route('direct.paymentMethod.oneClick') }}"
+                                        class="btn btn-sm btn-info">One
+                                        Click
+                                        Checkout</a>
+                                @endif
+                                <a href="{{ route('direct.paymentMethod') }}"
+                                    class="btn btn-sm btn-success">Checkout</a>
+                            </div>
                         </div>
                     @else
                         <div class="alert alert-info">Your Cart Is Empty</div>
