@@ -2,13 +2,15 @@
 
 use App\Models\Cart;
 use App\Models\Course;
+use Laravel\Cashier\Cashier;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
-use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CourseController;
-use App\Http\Controllers\PaymentMethodCheckoutController;
 use App\Http\Controllers\ProfileController;
-use Laravel\Cashier\Cashier;
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\SetupIntentController;
+use App\Http\Controllers\PaymentIntentController;
+use App\Http\Controllers\PaymentMethodCheckoutController;
 
 Route::get('/', function () {
     $courses = Course::all();
@@ -51,7 +53,18 @@ Route::controller(PaymentMethodCheckoutController::class)->group(function () {
 });
 
 
+// Direct Integration - Payment Intent
+Route::controller(PaymentIntentController::class)->group(function () {
+    Route::get('/direct/paymentIntent', 'index')->middleware('auth')->name('direct.paymentIntent');    
+    Route::post('/direct/paymentIntent/post', 'post')->middleware('auth')->name('direct.paymentIntent.post');  
+});
 
+
+// Direct Integration - setup Intent
+Route::controller(SetupIntentController::class)->group(function () {
+    Route::get('/direct/setupIntent', 'index')->middleware('auth')->name('direct.setupIntent');    
+    Route::post('/direct/setupIntent/post', 'post')->middleware('auth')->name('direct.setupIntent.post');  
+});
 
 
 
