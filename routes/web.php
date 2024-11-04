@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\WebhookController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\SetupIntentController;
 use App\Http\Controllers\PaymentIntentController;
@@ -68,7 +69,7 @@ Route::controller(SetupIntentController::class)->group(function () {
 
 
 
-
+Route::post('stripe/webhook', [WebhookController::class, 'handleWebhook'])->name('cashier.webhook');
 
 
 
